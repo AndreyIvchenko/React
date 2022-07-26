@@ -10,10 +10,9 @@ function App() {
 
     //data from server
     const data = [
-        {name:"Anna I.", salary: 800, increase: false},
-        {name:"Denis S.", salary: 3000, increase: true},
-        {name:"Sasha G.", salary: 5000, increase: false},
-        
+        {name:"Anna I.", salary: 800, increase: false, id:1},
+        {name:"Denis S.", salary: 3000, increase: true, id:2},
+        {name:"Sasha G.", salary: 5000, increase: false, id:3},
     ];
 
     return (
