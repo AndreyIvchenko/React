@@ -16,6 +16,14 @@ class EmployeesAddForm extends Component {
             [e.target.name]: e.target.value //нечастый синтаксис для имени пропса
         })
     }
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onAdd(this.state.name, this.state.salary);
+        this.setState({
+            name: '',
+            salary: ''
+        })
+    }
 
     render () {
         const {name, salary} = this.state; //деструктуризация
@@ -24,7 +32,8 @@ class EmployeesAddForm extends Component {
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
                 <form
-                    className="add-form d-flex">
+                    className="add-form d-flex"
+                    onSubmit = {this.onSubmit}>
                     <input type="text"
                         className="form-control new-post-label"
                         placeholder="Как его зовут?"
