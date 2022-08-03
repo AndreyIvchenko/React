@@ -1,4 +1,5 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
+import styled from 'styled-components';
 
 
 import './App.css';
@@ -9,7 +10,7 @@ class WhoAmI extends Component {
 		super(props);
 		this.state = {
 			years: 40,
-			text: '++++'
+			position: ''
 		}
 	}
 
@@ -19,26 +20,66 @@ class WhoAmI extends Component {
 			years: state.years + 1
 		}))
 	}
+	commitInputChanges =(e, color) => {
+		console.log(color);
+		this.setState({
+			position: e.target.value
+		});
+	}
 
 	render() {
-		const {name, surname, link} = this.props;
+		const {name, surname, link} = this.props; //выносим отдельно для оптимизации кода
+		const {position, years} = this.state;
+		 
+		console.log(this)
+
 		return (
 			<div>
-				<button onClick={this.nextYear}>{this.state.text}</button>
-				<h1>My name is {name}, surname - {surname}, age: {this.state.years} </h1>
+				<button onClick={this.nextYear}>+++</button>
+				<h1> My name is {name}, surname - {surname}, 
+					age: {years}, 
+					position: {position} 
+				</h1>
 				<a href={link}>My profile</a>
+				<form >
+					<span>Enter position</span>
+					<input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')} />
+				</form>
 			</div>
 		)
 	}
 }
 
+const Wrapper = styled.div`
+	width: 600px;
+	margin: 20px auto 0 auto;
+	text-align: center;
+`;
+
+const DinamicGreating = (props) => {
+	return (
+		<div className={'mb-3 p-3 bprder border-' + props.color}>
+			{
+				React.Children.map(props.children, child => {
+					return React.cloneElement(child, {className:'shadow border rounded'})
+				})
+			}
+		</div>
+	)
+}
+
 function App() {
 	return (
-	  <div className="App">
+	  <Wrapper>
+		<DinamicGreating color={'red'}>
+			<h2>AC DC</h2>
+			<h3>highway to hell</h3>
+		</DinamicGreating>
+
 			<WhoAmI name="Anna" surname="IV" link="#"/>
 			<WhoAmI name="Andr" surname="Ivch" link="#"/>
 
-	  </div>
+	  </Wrapper>
 	);
   }
   
